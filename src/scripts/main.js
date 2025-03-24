@@ -5,31 +5,52 @@
  */
 import { stays } from './stays.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const staysContainer = document.querySelector('#stays-container');
-    const template = document.querySelector('#stay-card-template');
-    
+// Función para crear una tarjeta de alojamiento
+function createStayCard(stay) {
+    const card = document.createElement('article');
+    card.className = 'stay-card';
+
+    card.innerHTML = `
+        <img class="w-full h-64 object-cover rounded-xl mb-4" src="${stay.photo}" alt="${stay.title}">
+        <div class="flex justify-between items-start">
+            <div class="flex flex-col">
+                <div class="flex items-center gap-2">
+                    ${stay.superHost ? '<span class="text-xs font-bold border border-gray-800 rounded-full px-2 py-1">SUPERHOST</span>' : ''}
+                    <span class="text-gray-500 text-sm">${formatStayType(stay)}</span>
+                </div>
+                <h3 class="text-gray-800 font-semibold mt-1">${stay.title}</h3>
+            </div>
+            <div class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                <span class="text-gray-800 text-sm">${stay.rating}</span>
+            </div>
+        </div>
+    `;
+
+    return card;
+}
+
+// Función auxiliar para formatear el tipo de propiedad
+function formatStayType(stay) {
+    let typeText = stay.type;
+    if (stay.beds) {
+        typeText += ` · ${stay.beds} ${stay.beds > 1 ? 'beds' : 'bed'}`;
+    }
+    return typeText;
+}
+
+// Función principal para renderizar los stays
+function renderStays() {
+    const staysContainer = document.getElementById('stays-container');
+    staysContainer.innerHTML = ''; // Limpiar contenedor
+
     stays.forEach(stay => {
-        const card = template.content.cloneNode(true);
-        
-        // Llenar los datos
-        card.querySelector('img').src = stay.photo;
-        card.querySelector('img').alt = stay.title;
-        
-        if (stay.superHost) {
-            card.querySelector('.superhost-badge').classList.remove('hidden');
-        }
-        
-        // Construir el texto del tipo de propiedad
-        let typeText = stay.type;
-        if (stay.beds) {
-            typeText += ` · ${stay.beds} ${stay.beds > 1 ? 'beds' : 'bed'}`;
-        }
-        card.querySelector('.stay-type').textContent = typeText;
-        
-        card.querySelector('.stay-title').textContent = stay.title;
-        card.querySelector('.stay-rating').textContent = stay.rating;
-        
+        const card = createStayCard(stay);
         staysContainer.appendChild(card);
     });
-});
+}
+
+// Ejecutar la función
+renderStays();

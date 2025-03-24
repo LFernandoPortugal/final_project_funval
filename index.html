@@ -11,7 +11,7 @@
     <!-- Header -->
     <header class="px-4 py-6 shadow-sm">
         <div class="container mx-auto flex justify-between items-center">
-            <a href=""><img src="./src/images/icons/logo.svg" alt=""></a>
+            <a href="index.html"><img src="./src/images/icons/logo.svg" alt="logo de la página"></a>
             <div class="flex items-center gap-2 bg-white p-2 rounded-lg shadow">
                 <span class="text-gray-500 text-sm">Add location</span>
                 <span class="border-l border-gray-300 h-6"></span>
@@ -19,7 +19,7 @@
                 <button class="bg-white text-red-500 p-1 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                    </svg>
+                      </svg>
                 </button>
             </div>
         </div>
@@ -27,38 +27,14 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-6">
-        <!-- Title and counter -->
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-bold text-gray-800">Stays in Finland</h2>
             <span class="text-sm text-gray-600">12+ stays</span>
         </div>
 
-        <!-- Stays Grid -->
         <div id="stays-container" class="grid grid-cols-1 gap-8">
-            <!-- Las tarjetas se generarán dinámicamente con JavaScript -->
+            <!-- Las tarjetas se generarán dinámicamente -->
         </div>
     </main>
-
-    <!-- Template para las tarjetas-->
-    <template id="stay-card-template">
-        <article class="stay-card">
-            <img class="w-full h-64 object-cover rounded-xl mb-4" src="" alt="Stay image">
-            <div class="flex justify-between items-start">
-                <div class="flex flex-col">
-                    <div class="flex items-center gap-2">
-                        <span class="superhost-badge hidden text-xs font-bold border border-gray-800 rounded-full px-2 py-1">SUPERHOST</span>
-                        <span class="stay-type text-gray-500 text-sm"></span>
-                    </div>
-                    <h3 class="stay-title text-gray-800 font-semibold mt-1"></h3>
-                </div>
-                <div class="flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <span class="stay-rating text-gray-800 text-sm"></span>
-                </div>
-            </div>
-        </article>
-    </template>
 </body>
 </html>
