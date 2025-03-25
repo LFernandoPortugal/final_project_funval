@@ -8,7 +8,7 @@ import { stays } from './stays.js';
 // Función para crear una tarjeta de alojamiento
 function createStayCard(stay) {
     const card = document.createElement('article');
-    card.className = 'stay-card';
+    card.className = 'stay-card hover:shadow-lg transition-shadow duration-300';
 
     card.innerHTML = `
         <img class="w-full h-64 object-cover rounded-xl mb-4" src="${stay.photo}" alt="${stay.title}">
