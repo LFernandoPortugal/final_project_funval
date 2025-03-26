@@ -4,7 +4,8 @@ export function initModal() {
     const modal = document.querySelector('#search-modal');
     const openModalBtn = document.querySelector('#open-modal');
     const closeModalBtn = document.querySelector('#close-modal');
-    const searchButton = document.querySelector('#search-button');
+    const mobileSearchButton = document.querySelector('#mobile-search-button');
+    const desktopSearchButton = document.querySelector('#desktop-search-button');
     
     // Elementos para contar huéspedes
     const adultsCount = document.querySelector('.adults-count');
@@ -13,6 +14,7 @@ export function initModal() {
     const decreaseAdults = document.querySelector('.decrease-adults');
     const increaseChildren = document.querySelector('.increase-children');
     const decreaseChildren = document.querySelector('.decrease-children');
+    const totalGuestsDisplay = document.querySelector('#total-guests-display');
     
     // Placeholders para mostrar la selección
     const locationPlaceholder = document.querySelector('#location-placeholder');
@@ -32,7 +34,7 @@ export function initModal() {
     // Cerrar modal
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
+        if (e.target === modal || e.target.classList.contains('bg-black')) {
             closeModal();
         }
     });
@@ -71,9 +73,12 @@ export function initModal() {
         decreaseAdults.disabled = adults === 0;
         decreaseChildren.disabled = children === 0;
         
-        // Actualizar placeholder
+        // Actualizar display y placeholder
         const totalGuests = adults + children;
-        guestsPlaceholder.textContent = totalGuests > 0 ? `${totalGuests} guest${totalGuests !== 1 ? 's' : ''}` : 'Add guests';
+        const guestsText = totalGuests === 0 ? 'Add guests' : `${totalGuests} guest${totalGuests !== 1 ? 's' : ''}`;
+        
+        totalGuestsDisplay.value = guestsText;
+        guestsPlaceholder.textContent = guestsText;
     }
     
     // Manejar selección de ubicación
@@ -86,19 +91,22 @@ export function initModal() {
             // Resaltar la opción seleccionada
             locationOptions.forEach(opt => opt.classList.remove('bg-gray-100', 'font-medium'));
             option.classList.add('bg-gray-100', 'font-medium');
-            
-            // Aquí podrías cargar resultados específicos para la ubicación seleccionada
         });
     });
     
-    // Manejar búsqueda
-    searchButton.addEventListener('click', () => {
-        // Aquí implementarías la lógica de búsqueda
+    // Función para realizar la búsqueda
+    function performSearch() {
         console.log('Searching for:', {
             location: selectedLocation,
             adults,
             children
         });
         closeModal();
-    });
+        
+        
+    }
+    
+    // Manejar búsqueda 
+    mobileSearchButton.addEventListener('click', performSearch);
+    desktopSearchButton.addEventListener('click', performSearch);
 }
