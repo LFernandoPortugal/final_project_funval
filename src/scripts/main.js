@@ -4,6 +4,10 @@
  * que define el comportamiento del programa.
  */
 import { stays } from './stays.js';
+import { initModal } from './modal.js';
+
+// Inicializar el modal
+initModal();
 
 // Función para crear una tarjeta de alojamiento
 function createStayCard(stay) {
@@ -54,3 +58,4 @@ function renderStays() {
 
 // Ejecutar la función
 renderStays();
+
