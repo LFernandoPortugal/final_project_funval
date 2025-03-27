@@ -1,13 +1,19 @@
-/**
- * Aquí estará la lógica principal de la aplicación.
- * Este bloque de código contiene la funcionalidad principal
- * que define el comportamiento del programa.
- */
+// src/scripts/main.js
+
 import { stays } from './stays.js';
 import { initModal } from './modal.js';
+import { filterStays, updateStaysCount } from './utils.js';
 
-// Inicializar el modal
-initModal();
+// Variables de estado global
+let currentStays = [...stays];
+let currentFilters = {
+    location: '',
+    adults: 0,
+    children: 0
+};
+
+// Inicializar el modal y pasarle la función de filtrado
+initModal(applyFilters);
 
 // Función para crear una tarjeta de alojamiento
 function createStayCard(stay) {
@@ -46,16 +52,43 @@ function formatStayType(stay) {
 }
 
 // Función principal para renderizar los stays
-function renderStays() {
+function renderStays(staysToRender) {
     const staysContainer = document.getElementById('stays-container');
     staysContainer.innerHTML = ''; // Limpiar contenedor
 
-    stays.forEach(stay => {
+    if (staysToRender.length === 0) {
+        staysContainer.innerHTML = `
+            <div class="col-span-full text-center py-10">
+                <p class="text-gray-500">No stays found matching your criteria.</p>
+            </div>
+        `;
+        return;
+    }
+
+    staysToRender.forEach(stay => {
         const card = createStayCard(stay);
         staysContainer.appendChild(card);
     });
+
+    // Actualizar el contador
+    updateStaysCount(staysToRender.length);
 }
 
-// Ejecutar la función
-renderStays();
+// Función para aplicar filtros
+function applyFilters(filters) {
+    currentFilters = { ...filters };
+    currentStays = filterStays(stays, filters.location, filters.adults, filters.children);
+    renderStays(currentStays);
+    
+    // Actualizar el título con la ubicación si existe
+    const locationTitle = document.querySelector('main h2');
+    if (filters.location) {
+        const [city] = filters.location.split(',');
+        locationTitle.textContent = `Stays in ${city}`;
+    } else {
+        locationTitle.textContent = 'Stays in Finland';
+    }
+}
 
+// Renderizar todos los stays al cargar la página
+applyFilters(currentFilters);

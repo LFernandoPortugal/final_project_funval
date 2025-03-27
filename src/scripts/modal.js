@@ -1,6 +1,7 @@
-// src/scripts/modal.js
+import { stays } from './stays.js';
+import { getUniqueLocations, formatGuestText } from './utils.js';
 
-export function initModal() {
+export function initModal(filterCallback) {
     const modal = document.querySelector('#search-modal');
     const openModalBtn = document.querySelector('#open-modal');
     const closeModalBtn = document.querySelector('#close-modal');
@@ -19,7 +20,12 @@ export function initModal() {
     // Placeholders para mostrar la selección
     const locationPlaceholder = document.querySelector('#location-placeholder');
     const guestsPlaceholder = document.querySelector('#guests-placeholder');
-    
+
+    // Elementos para la búsqueda de ubicación
+    const locationInput = document.querySelector('#location-input');
+    const locationResults = document.querySelector('#location-results');
+    const uniqueLocations = getUniqueLocations(stays);
+
     // Variables de estado
     let selectedLocation = '';
     let adults = 0;
@@ -74,39 +80,66 @@ export function initModal() {
         decreaseChildren.disabled = children === 0;
         
         // Actualizar display y placeholder
-        const totalGuests = adults + children;
-        const guestsText = totalGuests === 0 ? 'Add guests' : `${totalGuests} guest${totalGuests !== 1 ? 's' : ''}`;
-        
+        const guestsText = formatGuestText(adults, children);
         totalGuestsDisplay.value = guestsText;
         guestsPlaceholder.textContent = guestsText;
     }
     
-    // Manejar selección de ubicación
-    const locationOptions = document.querySelectorAll('.location-option');
-    locationOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            selectedLocation = option.querySelector('span').textContent;
-            locationPlaceholder.textContent = selectedLocation;
-            
-            // Resaltar la opción seleccionada
-            locationOptions.forEach(opt => opt.classList.remove('bg-gray-100', 'font-medium'));
-            option.classList.add('bg-gray-100', 'font-medium');
-        });
-    });
+    // Manejar selección de ubicación    
+    locationResults.innerHTML = uniqueLocations.map(location => `
+        <div class="location-option flex items-center gap-3 p-2 hover:bg-gray-100 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>${location}</span>
+        </div>
+    `).join('');
     
     // Función para realizar la búsqueda
     function performSearch() {
-        console.log('Searching for:', {
+        const filters = {
             location: selectedLocation,
-            adults,
-            children
-        });
+            adults: adults,
+            children: children
+        };
+        
+        // Llamar a la función de callback con los filtros
+        if (typeof filterCallback === 'function') {
+            filterCallback(filters);
+        }
+        
         closeModal();
-        
-        
     }
     
-    // Manejar búsqueda 
-    mobileSearchButton.addEventListener('click', performSearch);
+    // Manejar búsqueda (ambos botones)
+    // mobileSearchButton.addEventListener('click', performSearch);
     desktopSearchButton.addEventListener('click', performSearch);
+    
+    // Permitir búsqueda con Enter en el input de ubicación
+    document.querySelector('#location-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    
+
+    locationInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        if (searchTerm.length > 0) {
+            // Filtrar y mostrar resultados
+            locationResults.classList.remove('hidden');
+            
+            const options = document.querySelectorAll('.location-option');
+            options.forEach(option => {
+                const city = option.querySelector('span').textContent.toLowerCase();
+                option.style.display = city.includes(searchTerm) ? 'flex' : 'none';
+            });
+        } else {
+            // Ocultar resultados si no hay texto
+            locationResults.classList.add('hidden');
+        }
+    });
 }

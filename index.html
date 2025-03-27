@@ -38,19 +38,19 @@
         <!-- Modal de busqueda y filtros -->
         <div id="search-modal" class="fixed inset-0 z-50 hidden">
             <!-- Fondo semitransparente -->
-            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <div class="absolute inset-0 bg-black opacity-50"></div>
             
             <!-- Contenedor del modal -->
-            <div class="absolute top-0 left-0 right-0 bg-white md:max-w-4xl md:mx-auto md:mt-10 md:rounded-xl md:shadow-xl overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 bg-white md:max-w-full md:mx-0 md:shadow-xl overflow-hidden">
                 <!-- Header con botón de cerrar -->
                 <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-                    <button id="close-modal" class="text-gray-500">
+                    <div class="w-6"></div>
+                    <span class="text-sm font-medium">Edit your search</span>
+                    <button id="close-modal" class="text-gray-500 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                    <span class="text-sm font-medium">Edit your search</span>
-                    <div class="w-6"></div> <!-- Espacio para alinear -->
                 </div>
                 
                 <!-- Contenido del modal -->
@@ -60,7 +60,7 @@
                         <label class="block text-xs font-bold text-gray-700 mb-2">LOCATION</label>
                         <input type="text" id="location-input" placeholder="Search locations" 
                                class="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-red-500">
-                        <div id="location-results" class="mt-4 space-y-4">
+                        <div id="location-results" class="mt-4 space-y-4 hidden">
                             <div class="location-option flex items-center gap-3 p-2 hover:bg-gray-100 cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -118,8 +118,8 @@
                         </div>
                     </div>
                     
-                    <!-- Columna 3: Botón de búsqueda (solo desktop) -->
-                    <div class="hidden md:flex items-center justify-center p-6">
+                    <!-- Columna 3: Botón de búsqueda -->
+                    <div class="flex items-start justify-center p-6">
                         <button id="desktop-search-button" class="bg-red-500 text-white py-3 px-8 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-red-600 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -130,14 +130,14 @@
                 </div>
                 
                 <!-- Mobile: Botón de búsqueda -->
-                <div class="md:hidden p-4 border-t border-gray-200">
+                <!-- <div class="md:hidden p-4 border-t border-gray-200">
                     <button id="mobile-search-button" class="w-full bg-red-500 text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-red-600 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                         Search
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </main>
