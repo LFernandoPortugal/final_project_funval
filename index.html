@@ -28,7 +28,7 @@
     <main class="container mx-auto px-4 py-6">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-bold text-gray-800">Stays in Finland</h2>
-            <span class="text-sm text-gray-600">12+ stays</span>
+            <span id="stays-count" class="text-sm text-gray-600">12+ stays</span>
         </div>
 
         <div id="stays-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -58,7 +58,7 @@
                     <!-- Columna 1: Location -->
                     <div class="location-section p-6">
                         <label class="block text-xs font-bold text-gray-700 mb-2">LOCATION</label>
-                        <input type="text" id="location-input" placeholder="Search locations" 
+                        <input type="text" id="location-input" placeholder="Add locations" 
                                class="w-full p-2 border-b border-gray-300 focus:outline-none focus:border-red-500">
                         <div id="location-results" class="mt-4 space-y-4 hidden">
                             <div class="location-option flex items-center gap-3 p-2 hover:bg-gray-100 cursor-pointer">
@@ -93,7 +93,7 @@
                         <div class="mb-6">
                             <input type="text" id="total-guests-display" 
                                    class="w-full p-2 border-b border-gray-300 focus:outline-none" 
-                                   readonly value="0 guests">
+                                   readonly value="Add guests">
                         </div>
                         
                         <div class="space-y-8">
@@ -127,17 +127,7 @@
                             Search
                         </button>
                     </div>
-                </div>
-                
-                <!-- Mobile: Botón de búsqueda -->
-                <!-- <div class="md:hidden p-4 border-t border-gray-200">
-                    <button id="mobile-search-button" class="w-full bg-red-500 text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-red-600 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        Search
-                    </button>
-                </div> -->
+                </div>                
             </div>
         </div>
     </main>

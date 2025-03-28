@@ -47,8 +47,10 @@ export function formatGuestText(adults, children) {
  */
 export function updateStaysCount(count) {
     const countElement = document.querySelector('#stays-container + div span');
+    const mainCountStays = document.querySelector('#stays-count');
     if (countElement) {
         countElement.textContent = `${count}+ stays`;
+        mainCountStays.textContent = `${count}+ stays`;
     }
 }
 

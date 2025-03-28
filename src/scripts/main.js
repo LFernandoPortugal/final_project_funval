@@ -53,7 +53,7 @@ function formatStayType(stay) {
 
 // Función principal para renderizar los stays
 function renderStays(staysToRender) {
-    const staysContainer = document.getElementById('stays-container');
+    const staysContainer = document.querySelector('#stays-container');
     staysContainer.innerHTML = ''; // Limpiar contenedor
 
     if (staysToRender.length === 0) {
