@@ -44,16 +44,20 @@ export function formatGuestText(adults, children) {
 /**
  * Actualiza el contador de stays en el header
  * @param {number} count - Número de stays
+ * @param {boolean} isFiltered - Indica si hay filtros aplicados
  */
-export function updateStaysCount(count) {
+export function updateStaysCount(count, isFiltered = false) {
     const countElement = document.querySelector('#stays-container + div span');
     const mainCountStays = document.querySelector('#stays-count');
+    
     if (countElement) {
-        countElement.textContent = `${count}+ stays`;
-        mainCountStays.textContent = `${count}+ stays`;
+        countElement.textContent = isFiltered ? `${count} stays` : `${count}+ stays`;
+    }
+    
+    if (mainCountStays) {
+        mainCountStays.textContent = isFiltered ? `${count} stays` : `${count - 2}+ stays`;
     }
 }
-
 /**
  * Obtiene ciudades únicas de los stays
  * @param {Array} stays - Array de stays

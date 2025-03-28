@@ -80,6 +80,10 @@ function applyFilters(filters) {
     currentStays = filterStays(stays, filters.location, filters.adults, filters.children);
     renderStays(currentStays);
     
+    // Determinar si hay filtros activos
+    const isFiltered = filters.location || filters.adults > 0 || filters.children > 0;
+    updateStaysCount(currentStays.length, isFiltered);
+    
     // Actualizar el título con la ubicación si existe
     const locationTitle = document.querySelector('main h2');
     if (filters.location) {

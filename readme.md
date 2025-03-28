@@ -1,3 +1,6 @@
+Detalles adicionales
+_Filtro de búsqueda automático al escribir el lugar (location)
+
 # ¡Bienvenidos al proyecto! 🎉
 
 Este repositorio es una plantilla diseñada para ayudarte a comenzar rápidamente. Sigue estos pasos para configurar tu entorno y empezar a trabajar:
